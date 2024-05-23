@@ -6,11 +6,16 @@
     <title>Scruff Study</title>
     <style>
         body {
-            background-color: black;
-            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
+            color: white;
+            background: black;
+            overflow: hidden;
+            flex-direction: column;
         }
         h1 {
             font-size: 3em;
@@ -23,11 +28,49 @@
             border: 2px solid white;
             background-color: black;
             color: white;
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .dropdown select {
+            padding: 10px;
+            font-size: 1em;
+            background-color: black;
+            color: white;
+            border: 2px solid white;
         }
     </style>
 </head>
 <body>
-    <h1>Scruff-Study</h1>
+    <div class="dropdown">
+        <select>
+            <option selected disabled>Back again, let us know you better?</option>
+            <option>University?</option>
+            <option>Field of study?</option>
+            <option>Purpose?</option>
+        </select>
+    </div>
+    <h1>Scruff Study</h1>
     <input type="text" placeholder="Type here...">
+    <input type="file" accept="image/*" id="bgUpload">
+    <script>
+        document.getElementById('bgUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.body.style.backgroundImage = `url(${e.target.result})`;
+                    document.body.style.backgroundSize = 'cover';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
